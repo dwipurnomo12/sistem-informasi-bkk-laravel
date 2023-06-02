@@ -38,7 +38,7 @@
 					</a>
 
 				<ul class="sidebar-nav">
-					@if($users->roles === 'admin');
+					@if($users->role_id === 1);
 						<li class="sidebar-item">
 							<a class="sidebar-link" href="/dashboard">
 								<i class="bi bi-speedometer2"></i> <span class="align-middle">Dashboard</span>
@@ -93,7 +93,7 @@
 					@endif	
 
 
-					@if(isset($users)&& $users->roles === 'pendaftar');
+					@if($users->role_id === 2);
 						<li class="sidebar-item">
 							<a class="sidebar-link" href="/dashboard">
 								<i class="bi bi-speedometer2"></i> <span class="align-middle">Dashboard</span>

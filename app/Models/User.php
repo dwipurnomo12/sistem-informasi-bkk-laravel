@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'roles',
+        'role_id',
     ];
 
     /**
@@ -49,5 +49,9 @@ class User extends Authenticatable
         return $this->belongsTo(Pendaftar::class);
     }
 
-    
+    // 1 User hanya memiliki 1 Role
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

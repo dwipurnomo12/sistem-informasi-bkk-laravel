@@ -43,7 +43,7 @@ class DashboardInformasiController extends Controller
             'judul'         => 'required',
             'slug'          => 'required|unique:informasis',
             'deskripsi'     => 'required',
-            'file'          => 'mimes:xlsx,xls,doc,docx,pdf'
+            'file'          => 'required|mimes:xlsx,xls,doc,docx,pdf'
         ]);
 
         if($request->hasFile('file')){
@@ -91,7 +91,7 @@ class DashboardInformasiController extends Controller
         $rules = [
             'judul'         => 'required',
             'deskripsi'     => 'required',
-            'file'          => 'mimes:xlsx,xls,doc,docx,pdf'
+            'file'          => 'required|mimes:xlsx,xls,doc,docx,pdf'
         ];
 
         if($request->slug != $informasi->slug){

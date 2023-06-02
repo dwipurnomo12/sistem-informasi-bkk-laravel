@@ -33,11 +33,10 @@
                                             </div>
                                         @enderror
                                     </div>
-    
-        
-                                    <div class="mb-3">
-                                        <label for="deskripsi @error('deskripsi') is-invalid @enderror">Deskripsi</label>
-                                        <textarea name="deskripsi" id="editor"></textarea>
+
+                                     <div class="mb-3">
+                                        <label for="deskripsi">Deskripsi</label>
+                                        <textarea name="deskripsi" id="editor" class=" @error('deskripsi') is-invalid @enderror"></textarea>
                                         @error('deskripsi')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -46,8 +45,13 @@
                                     </div> 
 
                                     <div class="mb-3">
-                                        <label for="file @error('file') is-invalid @enderror">Upload File</label>
-                                        <input type="file" class="form-control" id="file" name="file">
+                                        <label for="file">Upload File</label>
+                                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file">
+                                        @error('file')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                         <div id="file-preview"></div>
                                     </div>
                                 </div>

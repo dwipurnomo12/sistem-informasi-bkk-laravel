@@ -16,7 +16,7 @@ class DashboardController extends Controller
         return view('dashboard.index', [
             'users'             => Auth::user(),
             'totalLowongan'     => Lowongan::all()->count(),
-            'totalUser'         => User::where('roles', 'pendaftar')->count(),
+            'totalUser'         => User::where('role_id', 1)->count(),
             'totalInformasi'    => Informasi::all()->count()
         ]);
     }
