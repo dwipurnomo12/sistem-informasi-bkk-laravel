@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Lowongan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -82,8 +81,8 @@ class DashboardLowonganController extends Controller
     public function show(Lowongan $lowongan)
     {
         return view('dashboard.lowongan.show', [
-            'users' => Auth::user(),
-            'lowongan' => $lowongan
+            'users'     => Auth::user(),
+            'lowongan'  => $lowongan
         ]);
     }
 
@@ -95,8 +94,8 @@ class DashboardLowonganController extends Controller
     public function edit(Lowongan $lowongan)
     {
         return view('/dashboard/lowongan/edit', [
-            'users' => Auth::user(),
-            'lowongan' => $lowongan
+            'users'     => Auth::user(),
+            'lowongan'  => $lowongan
         ]);
     }
 

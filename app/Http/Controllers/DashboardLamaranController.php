@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Pendaftar;
+namespace App\Http\Controllers;
 
 use App\Models\Lowongan;
 use App\Models\Pendaftar;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -34,10 +33,28 @@ class DashboardLamaranController extends Controller
     public function cetak(Pendaftar $pendaftar, Lowongan $lowongan)
     {
         $pendaftar = Pendaftar::where('user_id', auth()->user()->id)->first();
+
+        $logoBKKPath    = storage_path('/app/public/logo/LogoBKK.jpeg');
+        $logoBKK        = base64_encode(file_get_contents($logoBKKPath));
+
+        $logoSekolahPath    = storage_path('/app/public/logo/LogoSekolah.jpeg');
+        $logoSekolah        = base64_encode(file_get_contents($logoSekolahPath));
+
+        $user = auth()->user();
+        if ($user->foto) {
+            $fotoPesertaPath = storage_path('app/public/' . $user->foto);
+        } else {
+            $fotoPesertaPath = storage_path('app/public/foto/user.png');
+        }
+        $fotoPeserta       = base64_encode(file_get_contents($fotoPesertaPath));
+
         $pdf = PDF::loadview('dashboard.lamaran.cetak', [
-            'users'     => Auth::user(),
-            'pendaftar' => $pendaftar,
-            'lowongan'  => $lowongan,
+            'users'         => Auth::user(),
+            'pendaftar'     => $pendaftar,
+            'lowongan'      => $lowongan,
+            'logoBKK'       => $logoBKK,
+            'logoSekolah'   => $logoSekolah,
+            'fotoPeserta'   => $fotoPeserta
         ]);
 
         return $pdf->stream('kartu-peserta.pdf');

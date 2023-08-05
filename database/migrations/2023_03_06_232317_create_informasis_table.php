@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('excerpt');
             $table->text('deskripsi');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Lowongan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Pendaftar;
 use Illuminate\Http\Request;
 use App\Exports\PendaftarsExport;
@@ -27,6 +28,24 @@ class DataPendaftarController extends Controller
             'users'     => Auth::user(),
             'lowongan'  => $lowongan
         ]);
+    }
+
+    public function printPdf(Lowongan $lowongan)
+    {
+        $logoBKKPath    = storage_path('/app/public/logo/LogoBKK.jpeg');
+        $logoBKK        = base64_encode(file_get_contents($logoBKKPath));
+
+        $logoSekolahPath    = storage_path('/app/public/logo/LogoSekolah.jpeg');
+        $logoSekolah        = base64_encode(file_get_contents($logoSekolahPath));
+
+        $pdf = PDF::loadView('dashboard.pendaftar.print-pdf', [
+            'users'         => Auth::user(),
+            'lowongan'      => $lowongan,
+            'logoBKK'       => $logoBKK,
+            'logoSekolah'   => $logoSekolah,
+        ]);
+
+        return $pdf->stream('data-pendaftar.pdf');
     }
 
     public function exportexcel(Request $request, $lowongan_id)

@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Pendaftar;
+namespace App\Http\Controllers;
 
 use App\Models\Lowongan;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Pendaftar;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;

@@ -23,7 +23,10 @@
                     </div>
                     <div class="card-body">
                         <p>{!! $informasi->deskripsi !!}</p>
-                        <a href="{{ asset('storage/' .$informasi->file) }}"><i class="bi bi-file-earmark-arrow-down"></i> {{ basename($informasi->file) }}</a>
+                        @if ($informasi->file)
+                            <a href="{{ asset('storage/' .$informasi->file) }}"><i class="bi bi-file-earmark-arrow-down"></i> {{ basename($informasi->file) }}</a>
+                        @else
+                        @endif
                     </div>
                 </div>
             </div>

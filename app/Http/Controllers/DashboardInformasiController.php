@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Informasi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,8 +18,8 @@ class DashboardInformasiController extends Controller
     public function index()
     {
         return view('dashboard.informasi.index', [
-            'users' => Auth::user(),
-            'informasis' => Informasi::all()
+            'users'         => Auth::user(),
+            'informasis'    => Informasi::all()
         ]);
     }
 
@@ -43,7 +42,7 @@ class DashboardInformasiController extends Controller
             'judul'         => 'required',
             'slug'          => 'required|unique:informasis',
             'deskripsi'     => 'required',
-            'file'          => 'required|mimes:xlsx,xls,doc,docx,pdf'
+            'file'          => 'mimes:xlsx,xls,doc,docx,pdf'
         ]);
 
         if($request->hasFile('file')){
@@ -91,7 +90,7 @@ class DashboardInformasiController extends Controller
         $rules = [
             'judul'         => 'required',
             'deskripsi'     => 'required',
-            'file'          => 'required|mimes:xlsx,xls,doc,docx,pdf'
+            'file'          => 'mimes:xlsx,xls,doc,docx,pdf'
         ];
 
         if($request->slug != $informasi->slug){

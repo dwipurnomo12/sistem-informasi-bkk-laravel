@@ -69,6 +69,10 @@
 						
 						<li class="sidebar-header">
 							Lainnya
+						</li>
+						<a class="sidebar-link" href="/dashboard/profil/">
+							<i class="bi bi-book"></i> <span class="align-middle">Profil</span>
+						</a>
 							<li class="sidebar-item">
 								<a class="sidebar-link" href="{{ route('logout') }}"
 									onclick="event.preventDefault();
@@ -89,6 +93,7 @@
 									<i class="bi bi-box-arrow-right"></i> <span>Keluar</span>
 								</a>
 							</li>	
+							
 						
 					@endif	
 
@@ -117,6 +122,10 @@
 						<li class="sidebar-header">
 							Lainnya
 						</li>
+						<a class="sidebar-link" href="/dashboard/profil/">
+							<i class="bi bi-book"></i> <span class="align-middle">Profil</span>
+						</a>
+					</li>		
 						<li class="sidebar-item">
 							<a class="sidebar-link" href="{{ route('logout') }}"
 								onclick="event.preventDefault();
@@ -155,7 +164,11 @@
 							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="/dashboardassets/img/avatars/avatar.png" class="avatar img-fluid rounded me-1" alt="User" /> <span class="text-dark">{{ auth()->user()->name }}</span>
+								@if (auth()->user()->foto)
+								 <img src="{{ asset('storage/' . $users->foto) }}" class="avatar img-fluid rounded me-1" alt="User" /> <span class="text-dark">{{ auth()->user()->name }}</span>
+								@else
+									<img src="/dashboardassets/img/avatars/avatar.png" class="avatar img-fluid rounded me-1" alt="User" /> <span class="text-dark">{{ auth()->user()->name }}</span>
+								@endif
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 							
