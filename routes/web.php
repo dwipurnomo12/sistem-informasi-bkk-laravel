@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardLamaranController;
 use App\Http\Controllers\DashboardLowonganTersediaController;
 use App\Http\Controllers\DashboardProfilController;
 use App\Http\Middleware\CheckRole;
+use App\Models\Informasi;
 use GuzzleHttp\Middleware;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -32,8 +33,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Landing Page
 Route::get('/', [IndexController::class, 'index']);
-Route::resource('/lowongan', LowonganController::class);
-Route::resource('/informasi', InformasiController::class);
+
+Route::get('/lowongan', [LowonganController::class, 'lowongan']);
+Route::get('/lowongan/{lowongan:slug}', [LowonganController::class, 'show']);
+
+Route::get('/informasi', [InformasiController::class, 'informasi']);
+Route::get('/informasi/{informasi:slug}', [InformasiController::class, 'show']);
 
 
 // Login
@@ -41,26 +46,26 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::group(['middleware'  => 'checkRole:admin,pendaftar'], function(){
+Route::group(['middleware'  => 'checkRole:admin,pendaftar'], function () {
     Route::get('/dashboard/profil', [DashboardProfilController::class, 'index']);
     Route::put('/dashboard/profil', [DashboardProfilController::class, 'update']);
 });
 
-Route::group(['middleware' => 'checkRole:admin'], function(){ 
+Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/dashboard/lowongan/checkSlug', [DashboardLowonganController::class, 'checkSlug']);
     Route::resource('/dashboard/lowongan', DashboardLowonganController::class);
-    
+
     Route::get('/dashboard/pendaftar', [DataPendaftarController::class, 'index']);
     Route::get('/dashboard/pendaftar/{lowongan:slug}', [DataPendaftarController::class, 'pendaftar']);
     Route::get('/dashboard/pendaftar/print-pdf/{lowongan:slug}', [DataPendaftarController::class, 'printPdf']);
     route::get('/dashboard/pendaftar/exportexcel/{id}', [DataPendaftarController::class, 'exportexcel'])->name('exportexcel');
-    
+
     Route::get('/dashboard/informasi/checkSlug', [DashboardInformasiController::class, 'checkSlug']);
     Route::resource('/dashboard/informasi', DashboardInformasiController::class);
 });
 
 
-Route::group(['middleware' => 'checkRole:pendaftar'], function(){
+Route::group(['middleware' => 'checkRole:pendaftar'], function () {
     Route::get('/dashboard/lowongan-tersedia/', [DashboardLowonganTersediaController::class, 'index']);
     Route::get('/dashboard/lowongan-tersedia/daftar/{lowongan:slug}', [DashboardLowonganTersediaController::class, 'daftar']);
     Route::POST('/dashboard/lowongan-tersedia', [DashboardLowonganTersediaController::class, 'store'])->name('store');
@@ -71,6 +76,3 @@ Route::group(['middleware' => 'checkRole:pendaftar'], function(){
     Route::delete('/dashboard/lamaran/{id}', [DashboardLamaranController::class, 'destroy']);
     Route::get('/dashboard/lamaran/cetak/{lowongan:slug}', [DashboardLamaranController::class, 'cetak']);
 });
-
-
-

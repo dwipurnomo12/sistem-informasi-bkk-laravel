@@ -8,7 +8,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/dashboard/lowongan/{{ $lowongan->id }}" method="POST" enctype="multipart/form-data">
+                        <form action="/dashboard/lowongan/{{ $lowongan->slug }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
 
